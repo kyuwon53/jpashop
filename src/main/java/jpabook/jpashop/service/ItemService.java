@@ -28,6 +28,20 @@ public class ItemService {
     }
 
     /**
+     * 상품 수정
+     *
+     * @param itemId        수정할 상품 id
+     * @param updateItemDto 수정 아이템 정보
+     */
+    @Transactional
+    public void updateItem(Long itemId, UpdateItemDto updateItemDto) {
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setName(updateItemDto.getName());
+        findItem.setPrice(updateItemDto.getPrice());
+        findItem.setStockQuantity(updateItemDto.getStockQuantity());
+    }
+
+    /**
      * 전체 상품 목록 조회
      *
      * @return
