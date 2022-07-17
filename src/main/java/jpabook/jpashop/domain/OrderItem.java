@@ -32,4 +32,39 @@ public class OrderItem {
      * 주문 수량
      */
     private int count;
+
+    /**
+     * 주문 상품 생성
+     *
+     * @param item
+     * @param orderPrice
+     * @param count
+     * @return
+     */
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    /**
+     * 주문 취소
+     * 주문이 취소되면 상품의 재고 수량을 원복해줘야한다.
+     */
+    public void cancle() {
+        getItem().addStock(count);
+    }
+
+    /**
+     * 주문한 상품의 전체 가격을 리턴
+     *
+     * @return
+     */
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
 }
